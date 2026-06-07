@@ -13,7 +13,7 @@ Reprise d'un ancien projet en PHP Procédural.
 
 ## Technologies
 
-- PHP 8 (POO / MVC)
+- PHP 8.2 (POO / MVC)
 - MySQL / PDO
 - Bootstrap 5
 - MAMP (environnement local)
