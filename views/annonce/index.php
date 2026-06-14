@@ -5,6 +5,7 @@
         <?php foreach ($annonces as $annonce) : ?>
         <div class="col-md-4 mb-4">
             <div class="card h-100 shadow-sm">
+                <img src="<?php echo htmlspecialchars($annonce['photo']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($annonce['titre']); ?>" style="height: 150px; object-fit: cover;">
                 <div class="card-body">
                     <h5 class="card-title"><?php echo htmlspecialchars($annonce['titre']); ?></h5>
                     <p class="card-text text-muted"><?php echo htmlspecialchars($annonce['description_courte']); ?></p>

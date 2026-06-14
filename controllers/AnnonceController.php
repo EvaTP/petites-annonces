@@ -16,4 +16,17 @@ class AnnonceController {
         // On envoie les données à la vue
 		require_once 'views/annonce/index.php';
     }
+
+    public function detail(int $id): void {
+        // On récupère une annonce via le modèle
+        $annonce = $this->annonceModel->findById($id);
+
+        // Si l'annonce n'existe pas, on affiche un message d'erreur
+        if ($annonce === null) {
+            echo "Cette annonce n'existe pas.";
+            return;
+        }
+
+        require_once 'views/annonce/detail.php';
+    }
 }

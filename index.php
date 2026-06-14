@@ -22,4 +22,14 @@ $pdo = $database->getConnection();
 
 // On appelle le contrôleur
 $controller = new AnnonceController($pdo);
-$controller->liste();
+
+// On regarde ce qu'il y a dans l'URL pour savoir quoi afficher
+$page = $_GET['page'] ?? 'accueil';
+
+if ($page === 'annonce' && isset($_GET['id'])) {
+    // Affiche le détail d'une annonce précise
+    $controller->detail((int) $_GET['id']);
+} else {
+    // Par défaut, affiche la liste des annonces
+    $controller->liste();
+}

@@ -1,0 +1,50 @@
+<?php require_once 'views/partials/header.php'; ?>
+
+<div class="container mt-4">
+
+    <a href="/petites-annonces/" class="btn btn-outline-secondary mb-3">
+        <i class="bi bi-arrow-left"></i> Retour vers les annonces
+    </a>
+
+    <div class="row">
+        <div class="col-md-8">
+            <h1><?php echo htmlspecialchars($annonce['titre']); ?></h1>
+            <span class="badge bg-secondary mb-3"><?php echo htmlspecialchars($annonce['categorie']); ?></span>
+
+            <p class="lead"><?php echo htmlspecialchars($annonce['description_longue']); ?></p>
+
+            <ul class="list-group list-group-flush mb-4">
+                <li class="list-group-item">
+                    <i class="bi bi-geo-alt"></i>
+                    <?php echo htmlspecialchars($annonce['adresse']); ?>,
+                    <?php echo htmlspecialchars($annonce['cp']); ?>
+                    <?php echo htmlspecialchars($annonce['ville']); ?>,
+                    <?php echo htmlspecialchars($annonce['pays']); ?>
+                </li>
+                <li class="list-group-item">
+                    <i class="bi bi-calendar"></i>
+                    Publié le <?php echo date('d/m/Y', strtotime($annonce['date_enregistrement'])); ?>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h2 class="text-success"><?php echo number_format($annonce['prix'], 2, ',', ' '); ?> €</h2>
+                    <hr>
+                    <p>
+                        <i class="bi bi-person-circle"></i>
+                        Vendu par <strong><?php echo htmlspecialchars($annonce['pseudo']); ?></strong>
+                    </p>
+                    <button class="btn btn-success w-100">
+                        <i class="bi bi-telephone"></i> Contacter <?php echo htmlspecialchars($annonce['pseudo']); ?>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<?php require_once 'views/partials/footer.php'; ?>
