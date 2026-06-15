@@ -8,6 +8,8 @@
 
     <div class="row">
         <div class="col-md-8">
+            <!-- <img src="<?php echo htmlspecialchars($annonce['photo']); ?>" class="img-fluid rounded mb-3" alt="<?php echo htmlspecialchars($annonce['titre']); ?>" style="max-height: 350px; object-fit: contain; background-color: #f8f9fa;"> -->
+            <img src="<?php echo htmlspecialchars($annonce['photo']); ?>" class="img-fluid rounded mb-3" alt="<?php echo htmlspecialchars($annonce['titre']); ?>" style="width: 100%; max-height: 350px; object-fit: contain; background-color: #f8f9fa;">
             <h1><?php echo htmlspecialchars($annonce['titre']); ?></h1>
             <span class="badge bg-secondary mb-3"><?php echo htmlspecialchars($annonce['categorie']); ?></span>
 
