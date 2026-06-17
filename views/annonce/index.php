@@ -4,6 +4,8 @@
     <div class="row">
         <?php foreach ($annonces as $annonce) : ?>
         <div class="col-md-4 mb-4">
+
+        <a href="/petites-annonces/?page=annonce&id=<?php echo $annonce['id_annonce']; ?>" class="text-decoration-none">
             <div class="card h-100 shadow-sm">
                 <img src="<?php echo htmlspecialchars($annonce['photo']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($annonce['titre']); ?>" style="height: 150px; object-fit: cover;">
                 <div class="card-body">
@@ -21,6 +23,7 @@
                     <small class="text-muted">par <?php echo htmlspecialchars($annonce['pseudo']); ?></small>
                 </div>
             </div>
+        </a>
         </div>
         <?php endforeach; ?>
     </div>
