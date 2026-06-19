@@ -1,6 +1,9 @@
-<footer class="bg-light border-top mt-5 py-3">
+<footer class="bg-light border-top mt-auto py-3">
     <div class="container text-center text-muted">
         <small>© 2026 Petites Annonces — Mentions légales — CGV</small>
+        <br>
+        <small class="fst-italic">Ceci est un site fictif réalisé à des fins de démonstration.</small>
+
     </div>
 </footer>
 

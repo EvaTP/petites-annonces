@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 // On charge le fichier .env manuellement avec les variables d'environnement
 $env = parse_ini_file('.env');
 foreach ($env as $key => $value) {
@@ -8,10 +10,44 @@ foreach ($env as $key => $value) {
 // Chargement des classes
 require_once 'config/Database.php';
 require_once 'controllers/AnnonceController.php';
+require_once 'controllers/MembreController.php';
 
-// On crée la connexion à la BDD
+// Connexion à la BDD
 $database = new Database();
 $pdo = $database->getConnection();
+
+// On crée les contrôleurs
+$annonceController = new AnnonceController($pdo);
+$membreController  = new MembreController($pdo);
+
+// Routeur — on regarde l'URL pour savoir quoi afficher
+$page = $_GET['page'] ?? 'accueil';
+
+switch ($page) {
+    case 'annonce':
+        $annonceController->detail((int) $_GET['id']);
+        break;
+    case 'inscription':
+        $membreController->inscription();
+        break;
+    case 'connexion':
+        $membreController->connexion();
+        break;
+    case 'deconnexion':
+        $membreController->deconnexion();
+        break;
+    case 'profil':
+        $membreController->profil();
+        break;
+    default:
+        $annonceController->liste();
+        break;
+}
+
+
+
+
+
 
 // TEST : on récupère toutes les annonces
 // $stmt = $pdo->query("SELECT * FROM annonce");
@@ -20,16 +56,13 @@ $pdo = $database->getConnection();
 // var_dump($annonces);
 
 
-// On appelle le contrôleur
-$controller = new AnnonceController($pdo);
-
 // On regarde ce qu'il y a dans l'URL pour savoir quoi afficher
-$page = $_GET['page'] ?? 'accueil';
+// $page = $_GET['page'] ?? 'accueil';
 
-if ($page === 'annonce' && isset($_GET['id'])) {
-    // Affiche le détail d'une annonce précise
-    $controller->detail((int) $_GET['id']);
-} else {
-    // Par défaut, affiche la liste des annonces
-    $controller->liste();
-}
+// if ($page === 'annonce' && isset($_GET['id'])) {
+//      Affiche le détail d'une annonce précise
+//     $controller->detail((int) $_GET['id']);
+// } else {
+//      Par défaut, affiche la liste des annonces
+//     $controller->liste();
+// }
