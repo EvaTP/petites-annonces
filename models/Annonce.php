@@ -36,4 +36,20 @@ class Annonce {
 
         return $annonce ?: null;
     }
+
+    // Récupère toutes les annonces d'un membre précis
+    public function findByMembreId(int $membreId): array {
+        $stmt = $this->pdo->prepare("
+            SELECT a.*, c.titre AS categorie
+            FROM annonce a
+            JOIN categorie c ON a.categorie_id = c.id_categorie
+            WHERE a.membre_id = :membreId
+            ORDER BY a.date_enregistrement DESC
+        ");
+        $stmt->bindValue(':membreId', $membreId, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }

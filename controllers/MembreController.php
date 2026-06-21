@@ -1,12 +1,15 @@
 <?php
 
 require_once 'models/Membre.php';
+require_once 'models/Annonce.php';
 
 class MembreController {
     private Membre $membreModel;
+    private Annonce $annonceModel;
 
     public function __construct(PDO $pdo) {
         $this->membreModel = new Membre($pdo);
+        $this->annonceModel = new Annonce($pdo);
     }
 
     public function inscription(): void {
@@ -97,6 +100,7 @@ class MembreController {
         }
 
         $membre = $this->membreModel->findById($_SESSION['membre_id']);
+        $mesAnnonces = $this->annonceModel->findByMembreId($_SESSION['membre_id']);
 
         require_once 'views/membre/profil.php';
     }
