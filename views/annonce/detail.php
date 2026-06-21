@@ -28,6 +28,25 @@
                     Publié le <?php echo date('d/m/Y', strtotime($annonce['date_enregistrement'])); ?>
                 </li>
             </ul>
+            
+            <h3 class="mt-5 mb-3">💬 Commentaires</h3>
+            <?php if (empty($commentaires)) : ?>
+                <p class="text-muted">Aucun commentaire pour cette annonce.</p>
+            <?php else : ?>
+                <?php foreach ($commentaires as $commentaire) : ?>
+                    <div class="card mb-2">
+                        <div class="card-body">
+                            <p class="mb-1"><?php echo htmlspecialchars($commentaire['commentaire']); ?></p>
+                            <small class="text-muted">
+                                Par <strong><?php echo htmlspecialchars($commentaire['pseudo']); ?></strong>
+                                le <?php echo date('d/m/Y à H:i', strtotime($commentaire['date_enregistrement'])); ?>
+                            </small>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+
+
         </div>
 
         <div class="col-md-4">

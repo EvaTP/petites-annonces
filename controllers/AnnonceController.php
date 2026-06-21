@@ -1,12 +1,15 @@
 <?php
 
 require_once 'models/Annonce.php';
+require_once 'models/Commentaire.php';
 
 class AnnonceController {
     private Annonce $annonceModel;
+    private Commentaire $commentaireModel;
 
     public function __construct(PDO $pdo) {
         $this->annonceModel = new Annonce($pdo);
+        $this->commentaireModel = new Commentaire($pdo);
     }
 
     public function liste(): void {
@@ -26,6 +29,9 @@ class AnnonceController {
             echo "Cette annonce n'existe pas.";
             return;
         }
+
+        // On récupère les commentaires pour cette annonce
+        $commentaires = $this->commentaireModel->findByAnnonceId($id);
 
         require_once 'views/annonce/detail.php';
     }
