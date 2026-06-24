@@ -1,0 +1,46 @@
+:root {
+  --cat-emploi: #ff4d4d;
+  --cat-vehicule: #4d79ff;
+  --cat-immobilier: #4dff88;
+  --cat-vacances: #ffb84d;
+  --cat-multimedia: #d94dff;
+  --cat-loisirs: #4dd2ff;
+  --cat-materiel: #ffd24d;
+  --cat-services: #4dffcc;
+  --cat-maison: #ff4d9d;
+  --cat-vetements: #8cff4d;
+  --cat-autres: #999999;
+}
+
+/* Styles header */
+
+.sticker-title {
+  font-family: "Cherry Bomb One", cursive;
+  font-size: 3rem;
+  color: #0d6efd;
+  letter-spacing: 1px;
+
+  position: relative;
+  display: inline-block;
+}
+
+/* couche blanche derrière = effet sticker réel */
+.sticker-title::before {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+
+  color: white;
+  z-index: -1;
+
+  transform: scale(1.15);
+  filter: blur(0px);
+}
+
+.sticker-subtitle {
+  font-size: 1.25rem;
+  color: #6c757d;
+  font-style: italic;
+  margin-top: -4px;
+  letter-spacing: 0.5px;
+}

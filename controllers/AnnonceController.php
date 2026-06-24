@@ -29,6 +29,33 @@ class AnnonceController {
             echo "Cette annonce n'existe pas.";
             return;
         }
+        $erreurs = [];
+        $succes = false;
+
+        // Formulaire de commentaire
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['membre_id'])) {
+            $commentaire = trim($_POST['commentaire'] ?? '');
+
+            if (empty($commentaire)) {
+                $erreurs[] = "Le commentaire ne peut pas être vide.";
+            } elseif (strlen($commentaire) < 10) {
+                $erreurs[] = "Le commentaire doit faire au moins 10 caractères.";
+            } else {
+                $result = $this->commentaireModel->create(
+                    $_SESSION['membre_id'],
+                    $id,
+                    $commentaire
+                );
+
+                if ($result) {
+                    $succes = true;
+                    // On recharge les commentaires après ajout
+                    $commentaires = $this->commentaireModel->findByAnnonceId($id);
+                } else {
+                    $erreurs[] = "Une erreur est survenue, veuillez réessayer.";
+                }
+            }
+        }
 
         // On récupère les commentaires pour cette annonce
         $commentaires = $this->commentaireModel->findByAnnonceId($id);

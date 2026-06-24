@@ -21,4 +21,17 @@ class Commentaire {
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    // Ajoute un nouveau commentaire
+    public function create(int $membreId, int $annonceId, string $commentaire): bool {
+        $stmt = $this->pdo->prepare("
+            INSERT INTO commentaire (membre_id, annonce_id, commentaire)
+            VALUES (:membreId, :annonceId, :commentaire)
+        ");
+        $stmt->bindValue(':membreId',    $membreId,    PDO::PARAM_INT);
+        $stmt->bindValue(':annonceId',   $annonceId,   PDO::PARAM_INT);
+        $stmt->bindValue(':commentaire', $commentaire, PDO::PARAM_STR);
+
+        return $stmt->execute();
+    }
 }
