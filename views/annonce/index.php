@@ -14,9 +14,14 @@
                     <p class="card-text">
                         <small class="text-muted"><?php echo htmlspecialchars($annonce['ville']); ?></small>
                     </p>
+                    <!-- Badges couleur selon la catégorie (en cours) -->
                     <p class="card-text">
-                        <span class="badge bg-secondary"><?php echo htmlspecialchars($annonce['categorie']); ?></span>
+
+                        <span class="badge bg-secondary">
+                            <?php echo htmlspecialchars($annonce['categorie']); ?>
+                        </span>
                     </p>
+
                 </div>
                 <div class="card-footer d-flex justify-content-between align-items-center">
                     <strong><?php echo number_format($annonce['prix'], 2, ',', ' '); ?> €</strong>

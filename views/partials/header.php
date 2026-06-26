@@ -45,7 +45,11 @@
 
         <div class="ms-auto">
             <?php if (isset($_SESSION['membre_id'])) : ?>
+
                 <span class="me-3">Bonjour <strong><?php echo htmlspecialchars($_SESSION['pseudo']); ?></strong></span>
+                <a href="/petites-annonces/?page=creer-annonce" class="btn btn-success me-2">
+                    <i class="bi bi-plus-circle"></i> Déposer une annonce
+                </a>
                 <a href="/petites-annonces/?page=profil" class="btn btn-outline-primary">
                     <i class="bi bi-person"></i> Mon Profil
                 </a>

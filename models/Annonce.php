@@ -52,4 +52,42 @@ class Annonce {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    // Crée une nouvelle annonce
+    public function create(
+        string $titre,
+        string $descriptionCourte,
+        string $descriptionLongue,
+        float $prix,
+        string $photo,
+        string $pays,
+        string $ville,
+        string $adresse,
+        int $cp,
+        int $membreId,
+        int $categorieId
+    ): bool {
+        $stmt = $this->pdo->prepare("
+            INSERT INTO annonce (
+                titre, description_courte, description_longue, prix, photo,
+                pays, ville, adresse, cp, membre_id, categorie_id
+            ) VALUES (
+                :titre, :descriptionCourte, :descriptionLongue, :prix, :photo,
+                :pays, :ville, :adresse, :cp, :membreId, :categorieId
+            )
+        ");
+
+        $stmt->bindValue(':titre',              $titre,              PDO::PARAM_STR);
+        $stmt->bindValue(':descriptionCourte',  $descriptionCourte,  PDO::PARAM_STR);
+        $stmt->bindValue(':descriptionLongue',  $descriptionLongue,  PDO::PARAM_STR);
+        $stmt->bindValue(':prix',               $prix,               PDO::PARAM_STR);
+        $stmt->bindValue(':photo',              $photo,              PDO::PARAM_STR);
+        $stmt->bindValue(':pays',               $pays,               PDO::PARAM_STR);
+        $stmt->bindValue(':ville',              $ville,              PDO::PARAM_STR);
+        $stmt->bindValue(':adresse',            $adresse,            PDO::PARAM_STR);
+        $stmt->bindValue(':cp',                 $cp,                 PDO::PARAM_INT);
+        $stmt->bindValue(':membreId',           $membreId,           PDO::PARAM_INT);
+        $stmt->bindValue(':categorieId',        $categorieId,        PDO::PARAM_INT);
+
+        return $stmt->execute();
+    }
 }

@@ -39,6 +39,9 @@ switch ($page) {
     case 'profil':
         $membreController->profil();
         break;
+    case 'creer-annonce':
+        $annonceController->creer();
+        break;
     default:
         $annonceController->liste();
         break;

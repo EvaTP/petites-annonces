@@ -12,6 +12,98 @@
   --cat-autres: #999999;
 }
 
+/* Styles Badges catégories */
+
+span.badge.badge-emploi {
+  background-color: #ff4d4d;
+  color: white;
+}
+span.badge.badge-vehicule {
+  background-color: #4d79ff !important;
+}
+
+span.badge.badge-immobilier {
+  background-color: #4dff88;
+  color: black;
+}
+span.badge.badge-vacances {
+  background-color: #ffb84d;
+  color: black;
+}
+span.badge.badge-multimedia {
+  background-color: #d94dff;
+  color: white;
+}
+span.badge.badge-loisirs {
+  background-color: #4dd2ff;
+  color: black;
+}
+span.badge.badge-materiel {
+  background-color: #ffd24d;
+  color: black;
+}
+span.badge.badge-services {
+  background-color: #4dffcc;
+  color: black;
+}
+span.badge.badge-maison {
+  background-color: #ff4d9d;
+  color: white;
+}
+span.badge.badge-vetements {
+  background-color: #8cff4d;
+  color: black;
+}
+span.badge.badge-autres {
+  background-color: #999999;
+  color: white;
+}
+
+/* .badge.badge-emploi {
+  background-color: var(--cat-emploi);
+  color: white;
+}
+.badge.badge-vehicule {
+  background-color: var(--cat-vehicule);
+  color: white;
+}
+.badge.badge-immobilier {
+  background-color: var(--cat-immobilier);
+  color: white;
+}
+.badge.badge-vacances {
+  background-color: var(--cat-vacances);
+  color: black;
+}
+.badge.badge-multimedia {
+  background-color: var(--cat-multimedia);
+  color: white;
+}
+.badge.badge-loisirs {
+  background-color: var(--cat-loisirs);
+  color: black;
+}
+.badge.badge-materiel {
+  background-color: var(--cat-materiel);
+  color: black;
+}
+.badge.badge-services {
+  background-color: var(--cat-services);
+  color: black;
+}
+.badge.badge-maison {
+  background-color: var(--cat-maison);
+  color: white;
+}
+.badge.badge-vetements {
+  background-color: var(--cat-vetements);
+  color: black;
+}
+.badge.badge-autres {
+  background-color: var(--cat-autres);
+  color: white;
+} */
+
 /* Styles header */
 
 .sticker-title {
