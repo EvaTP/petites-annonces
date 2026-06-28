@@ -7,6 +7,19 @@ class Commentaire {
         $this->pdo = $pdo;
     }
 
+
+    // Récupère tous les commentaires (pour l'admin)
+    public function findAll(): array {
+        $stmt = $this->pdo->query("
+            SELECT c.*, m.pseudo, a.titre AS annonce
+            FROM commentaire c
+            JOIN membre m ON c.membre_id = m.id_membre
+            JOIN annonce a ON c.annonce_id = a.id_annonce
+            ORDER BY c.date_enregistrement DESC
+        ");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     // Récupère tous les commentaires d'une annonce, avec le pseudo de l'auteur
     public function findByAnnonceId(int $annonceId): array {
         $stmt = $this->pdo->prepare("
@@ -32,6 +45,14 @@ class Commentaire {
         $stmt->bindValue(':annonceId',   $annonceId,   PDO::PARAM_INT);
         $stmt->bindValue(':commentaire', $commentaire, PDO::PARAM_STR);
 
+        return $stmt->execute();
+    }
+    // Supprime un commentaire (pour faire de la modération)
+    public function delete(int $id): bool {
+        $stmt = $this->pdo->prepare("
+            DELETE FROM commentaire WHERE id_commentaire = :id
+        ");
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 }

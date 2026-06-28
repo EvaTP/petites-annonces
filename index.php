@@ -48,7 +48,13 @@ switch ($page) {
         $adminAnnonceController->index();
         break;
     case 'admin-supprimer-annonce':
-        $adminAnnonceController->supprimer((int) $_GET['id']);
+        $adminAnnonceController->supprimerAnnonce((int) $_GET['id']);
+        break;
+    case 'admin-supprimer-membre':
+        $adminAnnonceController->supprimerMembre((int) $_GET['id']);
+        break;
+    case 'admin-supprimer-commentaire':
+        $adminAnnonceController->supprimerCommentaire((int) $_GET['id']);
         break;
     default:
         $annonceController->liste();

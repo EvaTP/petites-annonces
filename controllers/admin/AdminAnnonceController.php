@@ -35,13 +35,30 @@ class AdminAnnonceController {
     public function index(): void {
         $this->checkAdmin();
         $annonces = $this->annonceModel->findAll();
-        require_once 'views/admin/annonce/index.php';
+		$membres = $this->membreModel->findAll();
+		$categories = $this->categorieModel->findAll();
+		$commentaires = $this->commentaireModel->findAll();
+        require_once 'views/admin/index.php';
     }
 
     // Supprimer une annonce
-    public function supprimer(int $id): void {
+    public function supprimerAnnonce(int $id): void {
         $this->checkAdmin();
         $this->annonceModel->delete($id);
+        header('Location: /petites-annonces/?page=admin');
+        exit;
+    }
+	// Supprimer un membre
+    public function supprimerMembre(int $id): void {
+        $this->checkAdmin();
+        $this->membreModel->delete($id);
+        header('Location: /petites-annonces/?page=admin');
+        exit;
+    }
+    // Supprimer un commentaire
+    public function supprimerCommentaire(int $id): void {
+        $this->checkAdmin();
+        $this->commentaireModel->delete($id);
         header('Location: /petites-annonces/?page=admin');
         exit;
     }

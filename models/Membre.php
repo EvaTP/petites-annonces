@@ -8,6 +8,14 @@ class Membre {
         $this->pdo = $pdo;
     }
 
+    // Trouver tous les membres (pour l'admin)
+    public function findAll(): array {
+        $stmt = $this->pdo->query("
+            SELECT * FROM membre ORDER BY date_enregistrement DESC
+        ");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     // Trouver un membre par son pseudo
     public function findByPseudo(string $pseudo): ?array {
         $stmt = $this->pdo->prepare("
@@ -49,6 +57,14 @@ class Membre {
         $stmt->bindValue(':mdp',        $mdpHashe,   PDO::PARAM_STR);
         $stmt->bindValue(':civilite',   $civilite,   PDO::PARAM_STR);
 
+        return $stmt->execute();
+    }
+    // Supprime un membre
+    public function delete(int $id): bool {
+        $stmt = $this->pdo->prepare("
+            DELETE FROM membre WHERE id_membre = :id
+        ");
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 }
