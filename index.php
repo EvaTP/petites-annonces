@@ -11,6 +11,7 @@ foreach ($env as $key => $value) {
 require_once 'config/Database.php';
 require_once 'controllers/AnnonceController.php';
 require_once 'controllers/MembreController.php';
+require_once 'controllers/admin/AdminAnnonceController.php';
 
 // Connexion à la BDD
 $database = new Database();
@@ -19,6 +20,7 @@ $pdo = $database->getConnection();
 // On crée les contrôleurs
 $annonceController = new AnnonceController($pdo);
 $membreController  = new MembreController($pdo);
+$adminAnnonceController = new AdminAnnonceController($pdo);
 
 // Routeur — on regarde l'URL pour savoir quoi afficher
 $page = $_GET['page'] ?? 'accueil';
@@ -41,6 +43,12 @@ switch ($page) {
         break;
     case 'creer-annonce':
         $annonceController->creer();
+        break;
+    case 'admin':
+        $adminAnnonceController->index();
+        break;
+    case 'admin-supprimer-annonce':
+        $adminAnnonceController->supprimer((int) $_GET['id']);
         break;
     default:
         $annonceController->liste();

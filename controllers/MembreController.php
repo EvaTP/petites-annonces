@@ -72,7 +72,7 @@ class MembreController {
                 $erreurs[] = "Pseudo ou mot de passe incorrect.";
             } else {
                 // Connexion réussie — on crée la session
-                session_start();
+                // session_start();  (doublon inutile car déjà démarrée dans index.php)
                 $_SESSION['membre_id'] = $membre['id_membre'];
                 $_SESSION['pseudo']    = $membre['pseudo'];
                 $_SESSION['statut']    = $membre['statut'];

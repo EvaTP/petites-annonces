@@ -90,4 +90,13 @@ class Annonce {
 
         return $stmt->execute();
     }
+
+    // supprime une annonce par son ID
+        public function delete(int $id): bool {
+        $stmt = $this->pdo->prepare("
+            DELETE FROM annonce WHERE id_annonce = :id
+        ");
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
 }

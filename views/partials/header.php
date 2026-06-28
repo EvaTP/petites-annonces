@@ -44,9 +44,17 @@
 
 
         <div class="ms-auto">
+            <!-- partie connectée -->
             <?php if (isset($_SESSION['membre_id'])) : ?>
 
                 <span class="me-3">Bonjour <strong><?php echo htmlspecialchars($_SESSION['pseudo']); ?></strong></span>
+
+                <?php if ($_SESSION['statut'] === 'admin') : ?>
+                    <a href="/petites-annonces/?page=admin" class="btn btn-warning me-2">
+                        <i class="bi bi-gear"></i> Administration
+                    </a>
+                <?php endif; ?>
+
                 <a href="/petites-annonces/?page=creer-annonce" class="btn btn-success me-2">
                     <i class="bi bi-plus-circle"></i> Déposer une annonce
                 </a>
