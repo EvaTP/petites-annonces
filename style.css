@@ -12,6 +12,25 @@
   --cat-autres: #999999;
 }
 
+.container {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Style du range slider */
+/* pour les navigateurs WebKit Chrome, Safari */
+.form-range::-webkit-slider-runnable-track {
+  background-color: #adb5bd;
+  height: 0.5rem;
+  border-radius: 1rem;
+}
+/* pour le navigateur Firefox */
+.form-range::-moz-range-track {
+  background-color: #adb5bd;
+  height: 0.5rem;
+  border-radius: 1rem;
+}
+
 /* Styles boutons navbar */
 .navbar .btn {
   transition: all 0.2s ease;
@@ -145,6 +164,31 @@ span.badge.badge-autres {
   color: white;
 } */
 
+/* Système de notation par étoiles */
+.star-rating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  gap: 4px;
+}
+
+.star-input {
+  display: none;
+}
+
+.star-label {
+  cursor: pointer;
+  font-size: 1.8rem;
+  color: #ccc;
+  transition: color 0.2s;
+}
+
+.star-input:checked ~ .star-label,
+.star-label:hover,
+.star-label:hover ~ .star-label {
+  color: #ffc107;
+}
+
 /* Styles header */
 
 .sticker-title {
@@ -177,3 +221,17 @@ span.badge.badge-autres {
   margin-top: -4px;
   letter-spacing: 0.5px;
 }
+
+/* MEDIA QUERIES  */
+/* Container plus large que le défaut Bootstrap */
+/* @media (min-width: 1400px) {
+  .container {
+    max-width: 1320px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1500px;
+  }
+} */

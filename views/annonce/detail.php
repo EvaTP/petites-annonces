@@ -84,7 +84,8 @@
                 <?php endif; ?>
             </div>
         </div>
-
+        
+        <!-- Colonne de droite avec le prix et le bouton de contact -->
         <div class="col-md-4">
             <div class="card shadow-sm">
                 <div class="card-body text-center">
@@ -98,6 +99,68 @@
                         <i class="bi bi-telephone"></i> Contacter <?php echo htmlspecialchars($annonce['pseudo']); ?>
                     </button>
                 </div>
+
+                <!-- Note moyenne du vendeur -->
+                <hr>
+                
+                <div class="text-center mb-2">
+                    <?php for ($i = 1; $i <= 5; $i++) : ?>
+                        <?php if ($noteMoyenne !== null && $i <= round($noteMoyenne)) : ?>
+                            <i class="bi bi-star-fill text-warning"></i>
+                        <?php else : ?>
+                            <i class="bi bi-star text-warning"></i>
+                        <?php endif; ?>
+                    <?php endfor; ?>
+                    <?php if ($noteMoyenne !== null) : ?>
+                        <small class="text-muted d-block"><?php echo $noteMoyenne; ?>/5 basé sur <?php echo count($avis); ?> avis</small>
+                    <?php else : ?>
+                        <small class="text-muted d-block">Pas encore de note</small>
+                    <?php endif; ?>
+                </div>
+
+                <!-- Formulaire de notation -->
+                <?php if (isset($_SESSION['membre_id']) && $_SESSION['membre_id'] !== $annonce['membre_id']) : ?>
+                    <?php if ($dejaNote) : ?>
+                        <p class="text-muted text-center small">Vous avez déjà noté ce vendeur.</p>
+                    <?php else : ?>
+                        <hr>
+                        <h6 class="text-center">Noter ce vendeur</h6>
+
+                        <?php if ($succesNote) : ?>
+                            <div class="alert alert-success">Note publiée !</div>
+                        <?php endif; ?>
+
+                        <?php if (!empty($erreursNote)) : ?>
+                            <div class="alert alert-danger">
+                                <ul class="mb-0">
+                                    <?php foreach ($erreursNote as $erreur) : ?>
+                                        <li><?php echo htmlspecialchars($erreur); ?></li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </div>
+                        <?php endif; ?>
+
+                        <form method="POST" action="/petites-annonces/?page=annonce&id=<?php echo $annonce['id_annonce']; ?>">
+                            <!-- Étoiles avec inputs radio cachés -->
+                            <div class="text-center mb-2">
+                                <div class="star-rating">
+                                    <?php for ($i = 5; $i >= 1; $i--) : ?>
+                                        <input type="radio" id="star<?php echo $i; ?>" name="note" value="<?php echo $i; ?>" class="star-input">
+                                        <label for="star<?php echo $i; ?>" class="star-label">
+                                            <i class="bi bi-star-fill"></i>
+                                        </label>
+                                    <?php endfor; ?>
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <textarea class="form-control form-control-sm" name="avis" rows="2" placeholder="Votre avis (optionnel)"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-warning w-100 btn-sm">
+                                <i class="bi bi-star"></i> Publier ma note
+                            </button>
+                        </form>
+                    <?php endif; ?>
+                <?php endif; ?>
             </div>
         </div>
     </div>

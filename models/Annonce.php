@@ -92,11 +92,54 @@ class Annonce {
     }
 
     // supprime une annonce par son ID
-        public function delete(int $id): bool {
-        $stmt = $this->pdo->prepare("
-            DELETE FROM annonce WHERE id_annonce = :id
+    public function delete(int $id): bool {
+    $stmt = $this->pdo->prepare("
+        DELETE FROM annonce WHERE id_annonce = :id
+    ");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    return $stmt->execute();
+    }
+
+    // Récupère les annonces avec filtres optionnels
+    public function findWithFilters(?int $categorieId = null, ?string $ville = null, ?float $prixMax = null): array {
+        $sql = "
+            SELECT a.*, m.pseudo, c.titre AS categorie
+            FROM annonce a
+            JOIN membre m ON a.membre_id = m.id_membre
+            JOIN categorie c ON a.categorie_id = c.id_categorie
+            WHERE 1=1
+        ";
+
+        $params = [];
+
+        if ($categorieId !== null) {
+            $sql .= " AND a.categorie_id = :categorieId";
+            $params[':categorieId'] = $categorieId;
+        }
+
+        if ($ville !== null) {
+            $sql .= " AND a.ville = :ville";
+            $params[':ville'] = $ville;
+        }
+
+        if ($prixMax !== null) {
+            $sql .= " AND a.prix <= :prixMax";
+            $params[':prixMax'] = $prixMax;
+        }
+
+        $sql .= " ORDER BY a.date_enregistrement DESC";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+    // Récupère la liste des villes distinctes
+    public function findVilles(): array {
+        $stmt = $this->pdo->query("
+            SELECT DISTINCT ville FROM annonce ORDER BY ville ASC
         ");
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-        return $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 }
