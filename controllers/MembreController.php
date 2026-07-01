@@ -2,14 +2,17 @@
 
 require_once 'models/Membre.php';
 require_once 'models/Annonce.php';
+require_once 'models/Note.php';
 
 class MembreController {
     private Membre $membreModel;
     private Annonce $annonceModel;
+    private Note $noteModel;
 
     public function __construct(PDO $pdo) {
         $this->membreModel = new Membre($pdo);
         $this->annonceModel = new Annonce($pdo);
+        $this->noteModel = new Note($pdo);
     }
 
     public function inscription(): void {
@@ -81,7 +84,6 @@ class MembreController {
                 exit;
             }
         }
-
         require_once 'views/membre/connexion.php';
     }
 
@@ -104,4 +106,22 @@ class MembreController {
 
         require_once 'views/membre/profil.php';
     }
+
+    public function profilPublic(int $id): void {
+        $membre = $this->membreModel->findById($id);
+
+        // Si le membre n'existe pas
+        if ($membre === null) {
+            header('Location: /petites-annonces/');
+            exit;
+        }
+
+        // On récupère ses annonces et ses notes
+        $mesAnnonces = $this->annonceModel->findByMembreId($id);
+        $noteMoyenne = $this->noteModel->getNoteMoyenne($id);
+        $avis        = $this->noteModel->findAvisByMembreId($id);
+
+        require_once 'views/membre/profil-public.php';
+    }
+
 }

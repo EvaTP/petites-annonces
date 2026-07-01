@@ -56,13 +56,13 @@ switch ($page) {
     case 'admin-supprimer-commentaire':
         $adminAnnonceController->supprimerCommentaire((int) $_GET['id']);
         break;
+    case 'profil-public':
+        $membreController->profilPublic((int) $_GET['id']);
+        break;
     default:
         $annonceController->liste();
         break;
 }
-
-
-
 
 
 
