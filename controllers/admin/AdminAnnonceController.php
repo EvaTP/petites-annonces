@@ -9,18 +9,21 @@ require_once __DIR__ . '/../../models/Annonce.php';
 require_once __DIR__ . '/../../models/Membre.php';
 require_once __DIR__ . '/../../models/Categorie.php';
 require_once __DIR__ . '/../../models/Commentaire.php';
+require_once __DIR__ . '/../../models/Statistique.php';
 
 class AdminAnnonceController {
     private Annonce $annonceModel;
     private Membre $membreModel;
     private Categorie $categorieModel;
     private Commentaire $commentaireModel;
+    private Statistique $statistiqueModel;
 
     public function __construct(PDO $pdo) {
         $this->annonceModel     = new Annonce($pdo);
         $this->membreModel      = new Membre($pdo);
         $this->categorieModel   = new Categorie($pdo);
         $this->commentaireModel = new Commentaire($pdo);
+        $this->statistiqueModel = new Statistique($pdo);
     }
 
     // Vérifie que l'utilisateur est admin
@@ -38,6 +41,10 @@ class AdminAnnonceController {
 		$membres = $this->membreModel->findAll();
 		$categories = $this->categorieModel->findAll();
 		$commentaires = $this->commentaireModel->findAll();
+        $topNotes      = $this->statistiqueModel->topMembresMieuxNotes();
+        $topActifs     = $this->statistiqueModel->topMembresLusPlusActifs();
+        $topAnciens    = $this->statistiqueModel->topAnnoncesLesPlusAnciennes();
+        $topCategories = $this->statistiqueModel->topCategories();
         require_once 'views/admin/index.php';
     }
 
@@ -102,5 +109,15 @@ class AdminAnnonceController {
         $this->commentaireModel->delete($id);
         header('Location: /petites-annonces/?page=admin');
         exit;
+    }
+
+    // Dashboard stats
+    public function stats(): void {
+        $this->checkAdmin();
+        $topNotes    = $this->statistiqueModel->topMembresMieuxNotes();
+        $topActifs   = $this->statistiqueModel->topMembresLusPlusActifs();
+        $topAnciens  = $this->statistiqueModel->topAnnoncesLesPlusAnciennes();
+        $topCategories = $this->statistiqueModel->topCategories();
+        require_once 'views/admin/index.php';
     }
 }

@@ -10,6 +10,7 @@ Reprise d'un ancien projet en PHP Procédural.
 - Système de commentaires et de notes
 - Back-office d'administration
 - Filtres et recherche d'annonces
+- Statistiques
 
 ## Technologies
 

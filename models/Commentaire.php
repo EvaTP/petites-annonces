@@ -11,7 +11,7 @@ class Commentaire {
     // Récupère tous les commentaires (pour l'admin)
     public function findAll(): array {
         $stmt = $this->pdo->query("
-            SELECT c.*, m.pseudo, a.titre AS annonce
+            SELECT c.*, m.pseudo, a.titre AS titre_annonce
             FROM commentaire c
             JOIN membre m ON c.membre_id = m.id_membre
             JOIN annonce a ON c.annonce_id = a.id_annonce

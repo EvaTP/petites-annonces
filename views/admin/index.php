@@ -25,6 +25,11 @@
                 <i class="bi bi-chat"></i> Commentaires (<?php echo count($commentaires); ?>)
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" href="#statistiques">
+                <i class="bi bi-bar-chart"></i> Statistiques
+            </a>
+        </li>
     </ul>
 
     <!-- Contenu des onglets -->
@@ -171,6 +176,145 @@
             </table>
         </div>
 
+        <!-- Onglet Statistiques -->
+        <div class="tab-pane fade" id="statistiques">
+            <div class="row">
+
+                <!-- Top 5 membres les mieux notés -->
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-warning text-dark">
+                            <i class="bi bi-star-fill"></i> Top 5 membres les mieux notés
+                        </div>
+                        <div class="card-body p-0">
+                            <table class="table table-striped mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Pseudo</th>
+                                        <th>Moyenne</th>
+                                        <th>Nb avis</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($topNotes as $i => $stat) : ?>
+                                    <tr>
+                                        <td>
+                                            <span class="badge bg-warning text-dark me-1"><?php echo $i + 1; ?></span>
+                                            <?php echo htmlspecialchars($stat['pseudo']); ?>
+                                        </td>
+                                        <td>
+                                            <?php for ($j = 1; $j <= 5; $j++) : ?>
+                                                <?php if ($j <= round($stat['moyenne'])) : ?>
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                <?php else : ?>
+                                                    <i class="bi bi-star text-warning"></i>
+                                                <?php endif; ?>
+                                            <?php endfor; ?>
+                                            <?php echo $stat['moyenne']; ?>
+                                        </td>
+                                        <td><?php echo $stat['total']; ?> avis</td>
+                                    </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top 5 membres les plus actifs -->
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <i class="bi bi-people-fill"></i> Top 5 membres les plus actifs
+                        </div>
+                        <div class="card-body p-0">
+                            <table class="table table-striped mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Pseudo</th>
+                                        <th>Nb annonces</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($topActifs as $i => $stat) : ?>
+                                    <tr>
+                                        <td>
+                                            <span class="badge bg-primary me-1"><?php echo $i + 1; ?></span>
+                                            <?php echo htmlspecialchars($stat['pseudo']); ?>
+                                        </td>
+                                        <td><?php echo $stat['total_annonces']; ?> annonces</td>
+                                    </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top 5 annonces les plus anciennes -->
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-secondary text-white">
+                            <i class="bi bi-clock-history"></i> Top 5 annonces les plus anciennes
+                        </div>
+                        <div class="card-body p-0">
+                            <table class="table table-striped mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Titre</th>
+                                        <th>Vendeur</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($topAnciens as $i => $stat) : ?>
+                                    <tr>
+                                        <td>
+                                            <span class="badge bg-secondary me-1"><?php echo $i + 1; ?></span>
+                                            <?php echo htmlspecialchars($stat['titre']); ?>
+                                        </td>
+                                        <td><?php echo htmlspecialchars($stat['pseudo']); ?></td>
+                                        <td><?php echo date('d/m/Y', strtotime($stat['date_enregistrement'])); ?></td>
+                                    </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top 5 catégories -->
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-success text-white">
+                            <i class="bi bi-tags-fill"></i> Top 5 catégories les plus actives
+                        </div>
+                        <div class="card-body p-0">
+                            <table class="table table-striped mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Catégorie</th>
+                                        <th>Nb annonces</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($topCategories as $i => $stat) : ?>
+                                    <tr>
+                                        <td>
+                                            <span class="badge bg-success me-1"><?php echo $i + 1; ?></span>
+                                            <?php echo htmlspecialchars($stat['titre']); ?>
+                                        </td>
+                                        <td><?php echo $stat['total_annonces']; ?> annonces</td>
+                                    </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
 </div>
 
