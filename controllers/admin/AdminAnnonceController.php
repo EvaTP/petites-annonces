@@ -41,6 +41,47 @@ class AdminAnnonceController {
         require_once 'views/admin/index.php';
     }
 
+    // Éditer un membre
+    public function editerMembre(int $id): void {
+        $this->checkAdmin();
+
+        $membre  = $this->membreModel->findById($id);
+        $erreurs = [];
+
+        if ($membre === null) {
+            header('Location: /petites-annonces/?page=admin');
+            exit;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $pseudo    = trim($_POST['pseudo'] ?? '');
+            $nom       = trim($_POST['nom'] ?? '');
+            $prenom    = trim($_POST['prenom'] ?? '');
+            $email     = trim($_POST['email'] ?? '');
+            $telephone = trim($_POST['telephone'] ?? '');
+            $civilite  = trim($_POST['civilite'] ?? '');
+            $statut    = trim($_POST['statut'] ?? '');
+
+            if (empty($pseudo))  $erreurs[] = "Le pseudo est obligatoire.";
+            if (empty($nom))     $erreurs[] = "Le nom est obligatoire.";
+            if (empty($prenom))  $erreurs[] = "Le prénom est obligatoire.";
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $erreurs[] = "L'email n'est pas valide.";
+
+            if (empty($erreurs)) {
+                $succes = $this->membreModel->update($id, $pseudo, $nom, $prenom, $email, $telephone, $civilite, $statut);
+
+                if ($succes) {
+                    header('Location: /petites-annonces/?page=admin');
+                    exit;
+                } else {
+                    $erreurs[] = "Une erreur est survenue, veuillez réessayer.";
+                }
+            }
+        }
+
+        require_once 'views/admin/membre/edit.php';
+    }
+
     // Supprimer une annonce
     public function supprimerAnnonce(int $id): void {
         $this->checkAdmin();

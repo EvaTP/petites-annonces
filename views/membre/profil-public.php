@@ -111,7 +111,25 @@
                                     <div class="card-body">
                                         <h5 class="card-title"><?php echo htmlspecialchars($annonce['titre']); ?></h5>
                                         <p class="card-text text-muted"><?php echo htmlspecialchars($annonce['description_courte']); ?></p>
-                                        <span class="badge bg-secondary"><?php echo htmlspecialchars($annonce['categorie']); ?></span>
+                                        <?php
+                                        $badgeClasses = [
+                                            'Emploi'     => 'bg-danger',
+                                            'Vehicule'   => 'bg-primary',
+                                            'Immobilier' => 'bg-success',
+                                            'Vacances'   => 'bg-warning text-dark',
+                                            'Multimedia' => 'bg-info text-dark',
+                                            'Loisirs'    => 'bg-secondary',
+                                            'Materiel'   => 'bg-dark',
+                                            'Services'   => 'bg-primary',
+                                            'Maison'     => 'bg-success',
+                                            'Vetements'  => 'bg-danger',
+                                            'Autres'     => 'bg-secondary',
+                                        ];
+                                        $badgeClass = $badgeClasses[$annonce['categorie']] ?? 'bg-secondary';
+                                        ?>
+                                        <span class="badge <?php echo $badgeClass; ?>">
+                                            <?php echo htmlspecialchars($annonce['categorie']); ?>
+                                        </span>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <strong><?php echo number_format($annonce['prix'], 2, ',', ' '); ?> €</strong>

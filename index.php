@@ -50,6 +50,9 @@ switch ($page) {
     case 'admin-supprimer-annonce':
         $adminAnnonceController->supprimerAnnonce((int) $_GET['id']);
         break;
+    case 'admin-editer-membre':
+        $adminAnnonceController->editerMembre((int) $_GET['id']);
+        break;    
     case 'admin-supprimer-membre':
         $adminAnnonceController->supprimerMembre((int) $_GET['id']);
         break;

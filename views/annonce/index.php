@@ -73,9 +73,30 @@
                                     <p class="card-text">
                                         <small class="text-muted"><?php echo htmlspecialchars($annonce['ville']); ?></small>
                                     </p>
-                                    <p class="card-text">
+                                    <!-- <p class="card-text">
                                         <span class="badge bg-secondary"><?php echo htmlspecialchars($annonce['categorie']); ?></span>
-                                    </p>
+                                    </p> -->
+                                
+                                    <?php
+                                        $badgeClasses = [
+                                            'Emploi'     => 'bg-danger',
+                                            'Vehicule'   => 'bg-primary',
+                                            'Immobilier' => 'bg-success',
+                                            'Vacances'   => 'bg-warning text-dark',
+                                            'Multimedia' => 'bg-info text-dark',
+                                            'Loisirs'    => 'bg-secondary',
+                                            'Materiel'   => 'bg-dark',
+                                            'Services'   => 'bg-primary',
+                                            'Maison'     => 'bg-success',
+                                            'Vetements'  => 'bg-danger',
+                                            'Autres'     => 'bg-secondary',
+                                        ];
+                                        $badgeClass = $badgeClasses[$annonce['categorie']] ?? 'bg-secondary';
+                                        ?>
+                                        <span class="badge <?php echo $badgeClass; ?>">
+                                            <?php echo htmlspecialchars($annonce['categorie']); ?>
+                                        </span>
+                                
                                 </div>
                                 <div class="card-footer d-flex justify-content-between align-items-center">
                                     <strong><?php echo number_format($annonce['prix'], 2, ',', ' '); ?> €</strong>

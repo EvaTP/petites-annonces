@@ -11,7 +11,25 @@
             <!-- <img src="<?php echo htmlspecialchars($annonce['photo']); ?>" class="img-fluid rounded mb-3" alt="<?php echo htmlspecialchars($annonce['titre']); ?>" style="max-height: 350px; object-fit: contain; background-color: #f8f9fa;"> -->
             <img src="<?php echo htmlspecialchars($annonce['photo']); ?>" class="img-fluid rounded mb-3" alt="<?php echo htmlspecialchars($annonce['titre']); ?>" style="width: 100%; max-height: 350px; object-fit: contain; background-color: #f8f9fa;">
             <h1><?php echo htmlspecialchars($annonce['titre']); ?></h1>
-            <span class="badge bg-secondary mb-3"><?php echo htmlspecialchars($annonce['categorie']); ?></span>
+            <?php
+                $badgeClasses = [
+                    'Emploi'     => 'bg-danger',
+                    'Vehicule'   => 'bg-primary',
+                    'Immobilier' => 'bg-success',
+                    'Vacances'   => 'bg-warning text-dark',
+                    'Multimedia' => 'bg-info text-dark',
+                    'Loisirs'    => 'bg-secondary',
+                    'Materiel'   => 'bg-dark',
+                    'Services'   => 'bg-primary',
+                    'Maison'     => 'bg-success',
+                    'Vetements'  => 'bg-danger',
+                    'Autres'     => 'bg-secondary',
+                ];
+                $badgeClass = $badgeClasses[$annonce['categorie']] ?? 'bg-secondary';
+                ?>
+                <span class="badge <?php echo $badgeClass; ?>">
+                    <?php echo htmlspecialchars($annonce['categorie']); ?>
+                </span>
 
             <p class="lead"><?php echo htmlspecialchars($annonce['description_longue']); ?></p>
 

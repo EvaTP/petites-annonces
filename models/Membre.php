@@ -59,7 +59,34 @@ class Membre {
 
         return $stmt->execute();
     }
-    // Supprime un membre
+
+    // Mettre à jour un membre
+    public function update(int $id, string $pseudo, string $nom, string $prenom, string $email, string $telephone, string $civilite, string $statut): bool {
+        $stmt = $this->pdo->prepare("
+            UPDATE membre SET
+                pseudo    = :pseudo,
+                nom       = :nom,
+                prenom    = :prenom,
+                email     = :email,
+                telephone = :telephone,
+                civilite  = :civilite,
+                statut    = :statut
+            WHERE id_membre = :id
+        ");
+
+        $stmt->bindValue(':pseudo',    $pseudo,    PDO::PARAM_STR);
+        $stmt->bindValue(':nom',       $nom,       PDO::PARAM_STR);
+        $stmt->bindValue(':prenom',    $prenom,    PDO::PARAM_STR);
+        $stmt->bindValue(':email',     $email,     PDO::PARAM_STR);
+        $stmt->bindValue(':telephone', $telephone, PDO::PARAM_STR);
+        $stmt->bindValue(':civilite',  $civilite,  PDO::PARAM_STR);
+        $stmt->bindValue(':statut',    $statut,    PDO::PARAM_STR);
+        $stmt->bindValue(':id',        $id,        PDO::PARAM_INT);
+
+        return $stmt->execute();
+    }
+
+    // Supprimer un membre
     public function delete(int $id): bool {
         $stmt = $this->pdo->prepare("
             DELETE FROM membre WHERE id_membre = :id
